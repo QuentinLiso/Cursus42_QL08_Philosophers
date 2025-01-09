@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qzoli <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/09 13:25:23 by qzoli             #+#    #+#             */
+/*   Updated: 2025/01/09 13:25:24 by qzoli            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_atoi(char *str)
 {
-	int result;
-	int sign;
+	int	result;
+	int	sign;
 
 	result = 0;
 	sign = 1;
@@ -48,7 +60,7 @@ void	log_philo_status(t_philo *philo, char *msg)
 	pthread_mutex_unlock(&philo->dinner->log_mtx);
 }
 
-int		clear_mtx(t_dinner *dinner, t_philo (*p)[SIZE], t_fork (*f)[SIZE])
+int	clear_mtx(t_dinner *dinner, t_philo (*p)[SIZE], t_fork (*f)[SIZE])
 {
 	int		i;
 	t_philo	*buf_philos;

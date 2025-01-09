@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   death.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qzoli <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/09 13:24:32 by qzoli             #+#    #+#             */
+/*   Updated: 2025/01/09 13:24:33 by qzoli            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*routine_death(void *arg)
@@ -16,10 +28,7 @@ void	*routine_death(void *arg)
 		while (++i < dinner->philos)
 		{
 			if (is_dead(&buf_philos[i], current_time))
-			{
 				return (NULL);
-			}
-				
 		}
 		ft_usleep(1);
 	}
@@ -47,7 +56,6 @@ bool	is_dead(t_philo *philo, time_t current_time)
 	}
 	return (false);
 }
-
 
 bool	all_alive(t_philo *philo)
 {

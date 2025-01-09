@@ -1,5 +1,17 @@
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qzoli <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/09 13:24:58 by qzoli             #+#    #+#             */
+/*   Updated: 2025/01/09 13:24:59 by qzoli            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -18,9 +30,9 @@
 # define DIED " died"
 # define FULL " is full ce gros porc"
 
-typedef	pthread_mutex_t t_mtx;
+typedef pthread_mutex_t	t_mtx;
 
-typedef struct	s_dinner
+typedef struct s_dinner
 {
 	int			philos;
 	time_t		tt_die;
@@ -56,7 +68,6 @@ typedef struct s_philo
 	t_dinner	*dinner;
 }	t_philo;
 
-
 // Death.c
 void	*routine_death(void *arg);
 bool	is_dead(t_philo *philo, time_t current_time);
@@ -70,7 +81,8 @@ void	put_r_fork(t_philo *philo);
 
 // Init.c
 int		init_dinner(t_dinner *dinner, int ac, char **av);
-int		init_philo_fork(t_dinner *dinner, t_philo (*p)[SIZE], t_fork (*f)[SIZE]);
+int		init_philo_fork(t_dinner *dinner, t_philo (*p)[SIZE],
+			t_fork (*f)[SIZE]);
 
 // Testers.c
 void	test_init_dinner(t_dinner *dinner);

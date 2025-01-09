@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   threads.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qzoli <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/09 13:25:10 by qzoli             #+#    #+#             */
+/*   Updated: 2025/01/09 13:25:11 by qzoli            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	create_threads(t_dinner *dinner, t_philo (*philos)[SIZE])
 {
-	int	i;
+	int		i;
 	t_philo	*buf_philo;
 
 	i = -1;
@@ -10,7 +22,8 @@ int	create_threads(t_dinner *dinner, t_philo (*philos)[SIZE])
 	dinner->start_time = ft_get_time();
 	while (++i < dinner->philos)
 	{
-		if (pthread_create(&(buf_philo[i].th), NULL, &routine_philo, &buf_philo[i]))
+		if (pthread_create(&(buf_philo[i].th), NULL, &routine_philo,
+				&buf_philo[i]))
 			return (1);
 	}
 	if (pthread_create(&(dinner->death_th), NULL, &routine_death, philos))
@@ -21,7 +34,7 @@ int	create_threads(t_dinner *dinner, t_philo (*philos)[SIZE])
 int	join_threads(t_dinner *dinner, t_philo (*philos)[SIZE])
 {
 	int		i;
-	t_philo *buf_philo;
+	t_philo	*buf_philo;
 	int		ret;
 
 	i = -1;
@@ -43,12 +56,12 @@ void	*routine_philo(void *arg)
 	while (all_alive(philo))
 	{
 		if (philo->eat_count >= philo->dinner->eat_max)
-			break;
+			break ;
 		pthread_mutex_lock(&philo->dinner->dead_mtx);
 		if (philo->dinner->any_dead)
 		{
 			pthread_mutex_unlock(&philo->dinner->dead_mtx);
-			break;	
+			break ;
 		}
 		pthread_mutex_unlock(&philo->dinner->dead_mtx);
 		take_l_fork(philo);
