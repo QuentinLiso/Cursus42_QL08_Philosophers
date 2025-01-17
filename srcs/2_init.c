@@ -16,7 +16,7 @@ int	init_dinner(t_dinner *dinner, int ac, char **av)
 {
 	if (ac != 5 && ac != 6)
 	{
-		printf("Wrong!\n");
+		printf("Wrong args!\n");
 		return (1);
 	}
 	dinner->philos = ft_atoi(av[1]);
@@ -31,9 +31,11 @@ int	init_dinner(t_dinner *dinner, int ac, char **av)
 			return (1);
 	}
 	dinner->any_dead = false;
-	if (dinner->philos <= 0 || dinner->tt_die < 0
+	if (dinner->philos <= 0 || dinner->philos > 200 || dinner->tt_die < 0
 		|| dinner->tt_eat < 0 || dinner->tt_sleep < 0)
 		return (1);
+	dinner->graille_count = dinner->philos;
+	pthread_mutex_init(&dinner->graille_mtx, NULL);
 	pthread_mutex_init(&dinner->log_mtx, NULL);
 	pthread_mutex_init(&dinner->dead_mtx, NULL);
 	return (0);
@@ -50,10 +52,7 @@ int	init_philo_fork(t_dinner *dinner, t_philo (*p)[SIZE], t_fork (*f)[SIZE])
 	i = -1;
 	while (++i < dinner->philos)
 	{
-		buf_philos[i].seat = i + 1;
-		buf_philos[i].even_seat = (bool)(i % 2);
-		buf_philos[i].eat_count = 0;
-		buf_philos[i].eat_last = 0;
+		set_philo(&buf_philos[i], i);
 		buf_philos[i].l_fork = &buf_forks[(i + 1) % dinner->philos];
 		buf_philos[i].r_fork = &buf_forks[i];
 		buf_philos[i].dinner = dinner;
@@ -65,4 +64,15 @@ int	init_philo_fork(t_dinner *dinner, t_philo (*p)[SIZE], t_fork (*f)[SIZE])
 			return (1);
 	}
 	return (0);
+}
+
+void	set_philo(t_philo *philo, int i)
+{
+	philo->seat = i + 1;
+	philo->even_seat = (bool)(i % 2);
+	philo->eat_count = 0;
+	philo->eat_last = 0;
+	philo->is_full = false;
+	philo->l_fork_held = false;
+	philo->r_fork_held = false;
 }

@@ -1,12 +1,13 @@
 SRCS=$(addprefix ./srcs/, \
 		$(addsuffix .c, \
-			death \
-			forks \
-			init \
-			main \
-			testers \
-			threads \
-			utils \
+			1_main \
+			2_init \
+			3_threads \
+			4_graille \
+			5_forks \
+			6_death \
+			7_utils \
+			99_testers \
 		) \
 	)
 OBJ=$(SRCS:%.c=%.o)
@@ -25,7 +26,6 @@ $(NAME)	: $(OBJ)
 
 clean	:
 		rm -rf $(OBJ)
-		make -C $(LIB_FOLD) clean
 
 fclean	: clean
 		rm -rf $(NAME)

@@ -21,7 +21,7 @@ void	*routine_death(void *arg)
 
 	buf_philos = *(t_philo (*)[200])arg;
 	dinner = buf_philos[0].dinner;
-	while (1)
+	while (!all_graille(dinner))
 	{
 		i = -1;
 		current_time = ft_get_time() - dinner->start_time;

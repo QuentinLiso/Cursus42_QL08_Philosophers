@@ -16,17 +16,25 @@ int	ft_atoi(char *str)
 {
 	int	result;
 	int	sign;
+	int	digit;
 
 	result = 0;
 	sign = 1;
 	while ((*str >= 9 && *str <= 13) || *str == ' ')
 		str++;
 	if (*str == '+' || *str == '-')
-		sign *= (*str++ - ',');
+		sign = ',' - *str++;
 	while (*str >= '0' && *str <= '9')
 	{
-		result = result * 10 + (*str - '0');
-		str++;
+		digit = *str++ - '0';
+		if (result > (INT_MAX - digit) / 10)
+		{
+			if (sign == 1)
+				return (INT_MAX);
+			else
+				return (INT_MIN);
+		}
+		result = result * 10 + digit;
 	}
 	return (result * sign);
 }
